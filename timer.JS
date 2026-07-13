@@ -1,5 +1,6 @@
 let pressedKey = 0;
 let timerContent = document.getElementById("timer");
+let title = document.getElementById("headline");
 let banana = 0;
 let timer = 0;
 let intervalId = 10;
@@ -46,6 +47,7 @@ addEventListener("keydown", function(event) {
     } else {
         clearInterval(intervalId);
         document.body.style.backgroundColor = "red";
+        title.textContent = "PRESS TO START";
         banana = 0;
         generateScramble();
     }
@@ -53,6 +55,7 @@ addEventListener("keydown", function(event) {
 
 addEventListener("keyup", function(event) {
     if (pressedKey == 1) {
+        title.textContent = "PRESS TO END";
         Solve();
         pressedKey = 0;
     }
