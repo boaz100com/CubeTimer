@@ -1,0 +1,35 @@
+
+body{
+    background-color: #e71f1f;
+    color: #000000;
+    position: relative;
+    text-align: center;
+}
+#scramble{
+    position: relative;
+    text-align: center;
+    top: 30vh;
+    font-size: 2.7vmax;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    margin-top: 20px;
+}
+#headline{
+    position: relative;
+    text-align: center;
+    top: 1vh;
+    font-size: 2.7vmax;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+#timer{
+    position: relative;
+    text-align: center;
+    top: 60vh;
+    font-size: 2.7vmax;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    margin-top: 20px;
+}
