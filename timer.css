@@ -1,9 +1,8 @@
 
 body{
-    background-color: #e71f1f;
+    background-color: #1f79e7;
     color: #000000;
     position: relative;
-    text-align: center;
 }
 #scramble{
     position: relative;
@@ -24,11 +23,70 @@ body{
     margin-top: 20px;
 }
 
+#NumberS{
+    position: fixed;
+    bottom: 10vh;
+    left: 0;
+    font-size: 2vmax;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    margin-top: 20px;
+}
+#Bsolve{
+    position: fixed;
+    bottom: 5vh;
+    left: 0;
+    font-size: 2vmax;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+}
+
+#Ao5{
+    position: fixed;
+    bottom: 0vh;
+    left: 0;
+    /* top: 50vh; */
+    font-size: 2vmax;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+#Ao12{
+    position: fixed;
+    bottom: 5vh;
+    right: 0;
+    font-size: 2vmax;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    margin-top: 20px;
+}
+#Ao50{
+    position: fixed;
+    bottom: 0vh;
+    right: 0;
+    font-size: 2vmax;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+#Wsolve{
+    position: fixed;
+    bottom: 10vh;
+    right: 0;
+    font-size: 2vmax;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+
 #timer{
     position: relative;
     text-align: center;
     top: 60vh;
-    font-size: 2.7vmax;
+    font-size: 2.5vmax;
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
     margin-top: 20px;
