@@ -80,7 +80,33 @@ body{
     font-weight: bold;
     margin-top: 20px;
 }
+#plus-two{
+position: absolute;
+    top: 70vh;
+    left: 35%;                   /* Moves the left edge to the middle of the screen */
+    transform: translateX(-50%); /* Shifts it back by half its width to center it perfectly */
+    display: flex;               /* Uses Flexbox to align the buttons inside */
+    justify-content: center;     /* Centers the buttons inside the container */
+    align-items: center;         /* Aligns them vertically */
+    gap: 20px;                   /* Sets a permanent, fixed space between the buttons */
+    
+    width: auto;
+}
 
+#delete{
+position: absolute;
+    top: 70vh;
+    left: 64.5%;                   /* Moves the left edge to the middle of the screen */
+    transform: translateX(-50%); /* Shifts it back by half its width to center it perfectly */
+    display: flex;               /* Uses Flexbox to align the buttons inside */
+    justify-content: center;     /* Centers the buttons inside the container */
+    align-items: center;         /* Aligns them vertically */
+    gap: 20px;                   /* Sets a permanent, fixed space between the buttons */
+    
+    width: auto;
+}
+.arrow { width: 80px; height: 4.2vh; font-size: 3.8vh;; font-weight: bold; margin: 4px; cursor: pointer; background: #0e0f0f; border: 2px solid #caecd6; color: #ffffff; border-radius: 12px;
+}
 
 #timer{
     position: relative;
