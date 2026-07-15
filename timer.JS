@@ -6,13 +6,24 @@ let timer = 0;
 let intervalId = 10;
 let Ao5 = document.getElementById("Ao5");
 let NumberS = document.getElementById("NumberS");
-NumberS.textContent = "Number of Solves: " + (localStorage.length); 
+const plus_two  = document.getElementById("plus-two");
+const DELETE = document.getElementById("delete");
+let List = JSON.parse(localStorage.getItem("List")) || [];
+NumberS.textContent = "Number of Solves: " + (List.length);
+let arrow = document.querySelector("arrow")
 let Bsolve = document.getElementById("Bsolve");
-let BsolveRN = Infinity;
 let Wsolve = document.getElementById("Wsolve");
-let WsolveRN = 0;
 let Ao12 = document.getElementById("Ao12");
 let Ao50 = document.getElementById("Ao50");
+const deleteBtn = document.getElementById("delete");
+const plusTwoBtn = document.getElementById("plus-two");
+
+if(localStorage.getItem("SolveBest") == null) {
+    localStorage.setItem("SolveBest", Infinity);
+}
+if(localStorage.getItem("SolveWorst") == null) {
+    localStorage.setItem("SolveWorst", 0);
+}
 function generateScramble() {
   var array = new Array(" U", " D", " R", " L", " F", " B")
   var switches = ["", "\'", "2"]; 
@@ -35,8 +46,6 @@ function generateScramble() {
   }
   document.getElementById("scramble").innerHTML = scramble; // Display the scramble
 }
-generateScramble();
-
 
 function Solve() {
     timer = 0;
@@ -46,79 +55,146 @@ function Solve() {
         timerContent.innerHTML = (parseFloat(timer)).toFixed(2);;
     }, 10);
 }
-
 function CalcAo5() {
-    if (localStorage.length >= 5) {
-        let Ao5List = [];
-        for (let i = 0; i < 5; i++) {
-            Ao5List[i] = parseFloat(localStorage.getItem("Solve"+(localStorage.length-5+i)));
-        }
+    if (List.length >= 5) {
+        let Ao5List = List.slice(-5); 
+        Ao5List = Ao5List.map(num => parseFloat(num));
         Ao5List.sort((a, b) => a - b);
-        Ao5.textContent = "Ao5: " + ((Ao5List[1] + Ao5List[2] + Ao5List[3])/3).toFixed(2);
+        Ao5.textContent = "Ao5: " + ((parseFloat(Ao5List[1]) + parseFloat(Ao5List[2]) + parseFloat(Ao5List[3]))/3).toFixed(2);
     } else{
         Ao5.textContent = "Ao5: N/A";
     }
 }
-
 function CalcAo12() {
-    if (localStorage.length >= 12) {
-        let Ao12List = [];
-        for (let i = 0; i < 12; i++) {
-            Ao12List[i] = parseFloat(localStorage.getItem("Solve"+(localStorage.length-12+i)));
-        }
+    if (List.length >= 12) {
+        let Ao12List = List.slice(-12); 
+        Ao12List = Ao12List.map(num => parseFloat(num));
         Ao12List.sort((a, b) => a - b);
-        Ao12.textContent = "Ao12: " + ((Ao12List[1] + Ao12List[2] + Ao12List[3] + Ao12List[4] + Ao12List[5] + Ao12List[6] + Ao12List[7] + Ao12List[8] + Ao12List[9] + Ao12List[10] + Ao12List[11])/11).toFixed(2);
+        let sum12 =0;
+        for(let i =0; i<10; i++){
+            sum12 = sum12 + Ao12List[i+1]
+        }
+        Ao12.textContent = "Ao12: " + (parseFloat(sum12)/10).toFixed(2);
     } else{
         Ao12.textContent = "Ao12: N/A";
     }
 }
-
 function CalcAo50() {
-    if (localStorage.length >= 50) {
-        let Ao50List = [];
-        for (let i = 0; i < 50; i++) {
-            Ao50List[i] = parseFloat(localStorage.getItem("Solve"+(localStorage.length-50+i)));
-        }
+    if(List.length >50){
+        let Ao50List = List.slice(-50); 
+        Ao50List = Ao50List.map(num => parseFloat(num));
         Ao50List.sort((a, b) => a - b);
-        Ao50.textContent = "Ao50: " + ((Ao50List[1] + Ao50List[2] + Ao50List[3] + Ao50List[4] + Ao50List[5] + Ao50List[6] + Ao50List[7] + Ao50List[8] + Ao50List[9] + Ao50List[10])/99).toFixed(2);
-    } else{
+        let sum50 =0;
+        for(let i =0; i<48; i++){
+            sum50 = sum50 + Ao50List[i+1]
+        }
+        Ao50.textContent = "Ao50: " + (parseFloat(sum50)/48).toFixed(2);
+    }else{
         Ao50.textContent = "Ao50: N/A";
     }
 }
 
-
 function Bsolvefunc() {
-    if (timerContent.textContent < BsolveRN) {
-        Bsolve.textContent = "Best Solve: " + timerContent.textContent;
-        BsolveRN = timerContent.textContent;
+    if (List.length > 0 && (parseFloat(List[List.length - 1]) < parseFloat(localStorage.getItem("SolveBest")))) {
+        localStorage.setItem("SolveBest2", localStorage.getItem("SolveBest"));
+        localStorage.setItem("SolveBest", parseFloat(List[List.length - 1]));
+        Bsolve.textContent = "Best Solve: " + (parseFloat(List[List.length - 1])).toFixed(2);
+    } if (List.length >0){
+        Bsolve.textContent = "Best Solve: " + (parseFloat(localStorage.getItem("SolveBest")).toFixed(2))
+    } else {
+        Bsolve.textContent = "Best Solve: N/A"
     }
 }
 function Wsolvefunc() {
-    if (timerContent.textContent > WsolveRN) {
-        Wsolve.textContent = "Worst Solve: " + timerContent.textContent;
-        WsolveRN = timerContent.textContent;
+    if (List.length > 0 && parseFloat(List[List.length - 1]) > parseFloat(localStorage.getItem("SolveWorst"))) {
+        localStorage.setItem("SolveWorst2", localStorage.getItem("SolveWorst"));
+        localStorage.setItem("SolveWorst", parseFloat(List[List.length - 1]));
+        Wsolve.textContent = "Worst Solve: " + (parseFloat(List[List.length - 1])).toFixed(2);
+    } if (List.length >0){
+        Wsolve.textContent = "Worst Solve: " + (parseFloat(localStorage.getItem("SolveWorst")).toFixed(2))
+    } else {
+        Wsolve.textContent = "Worst Solve: N/A"
     }
 }
-addEventListener("keydown", function(event) {
-    if (event.key == "p") {
-        localStorage.clear();
-        Bsolve.textContent = "Best Solve: N/A";
-        BsolveRN = Infinity;
-        Wsolve.textContent = "Worst Solve: N/A";
-        WsolveRN = 0;
-        NumberS.textContent = "Number of Solves: " + (localStorage.length); 
+function Delete() {
+    if (List.length > 0) {
+        if (List.length-1 > 0) {
+            if (localStorage.getItem("SolveBest") == parseFloat(List[List.length - 1])){
+                Bsolve.textContent ="Best Solve: " +parseFloat(localStorage.getItem("SolveBest2")).toFixed(2);
+            } 
+            if (localStorage.getItem("SolveWorst") == parseFloat(List[List.length - 1])){
+                Wsolve.textContent ="Worst Solve: " +parseFloat(localStorage.getItem("SolveWorst2")).toFixed(2);
+            } 
+        } else {
+            Bsolve.textContent = "Best Solve: N/A";
+            localStorage.setItem("SolveBest", Infinity);
+            Wsolve.textContent = "Worst Solve: N/A";
+            localStorage.setItem("SolveWorst", 0);
+        }
+        List.pop();
+        localStorage.setItem("List", JSON.stringify(List));
+        NumberS.textContent = "Number of Solves: " + (List.length);
+        timerContent.textContent = "0.00";
+        plus_two.style.display = "none"; 
+        DELETE.style.display = "none"; 
         CalcAo5();
         CalcAo12();
         CalcAo50();
+    }
+}
+function Plus2() {
+        if (localStorage.getItem("SolveBest") == parseFloat(List[List.length - 1])){
+            Bsolve.textContent ="Best Solve: " +parseFloat(localStorage.getItem("SolveBest2")).toFixed(2);
+            localStorage.setItem("SolveBest", localStorage.getItem("SolveBest2"));
+        } 
+    let timePlus2 = (parseFloat(timerContent.textContent)+2).toFixed(2);
+    List[List.length - 1] = timePlus2;
+    timerContent.textContent = timePlus2;
+    localStorage.setItem("List", JSON.stringify(List));
+    CalcAo5();
+    CalcAo12();
+    CalcAo50();
+}
+
+generateScramble();
+Bsolvefunc();
+Wsolvefunc();
+CalcAo5();
+CalcAo12();
+CalcAo50();
+
+plus_two.style.display = "none"; 
+DELETE.style.display = "none"; 
+
+
+
+addEventListener("keydown", function(event) {
+    if (event.key == "p") {
+        localStorage.clear();
+        List = [];
+        Bsolve.textContent = "Best Solve: N/A";
+        localStorage.setItem("SolveBest", Infinity);
+        Wsolve.textContent = "Worst Solve: N/A";
+        localStorage.setItem("SolveWorst", 0);
+        NumberS.textContent = "Number of Solves: " + (List.length); 
+        timerContent.textContent = "0.00";
+        CalcAo5();
+        CalcAo12();
+        CalcAo50();
+        Bsolvefunc();
+        Wsolvefunc();
     } else {
     if (banana == 0) {
         document.body.style.backgroundColor = "green";
         pressedKey = 1;
     } else {
         clearInterval(intervalId); //stops the timer
-        localStorage.setItem("Solve"+localStorage.length, timerContent.textContent); //sets the time in local storage
+        List.push(parseFloat(timerContent.textContent).toFixed(2));
+        localStorage.setItem("List", JSON.stringify(List)); //sets the time in local storage
         document.body.style.backgroundColor = "red";
-        NumberS.textContent = "Number of Solves: " + (localStorage.length);
+        NumberS.textContent = "Number of Solves: " + (List.length);
+        plus_two.style.display = "block"; 
+        DELETE.style.display = "block"; 
         Bsolvefunc();
         CalcAo5();
         CalcAo12();
@@ -134,11 +210,23 @@ addEventListener("keydown", function(event) {
 addEventListener("keyup", function(event) {
     if (pressedKey == 1) {
         title.textContent = "PRESS TO END";
+        plus_two.style.display = "none"; 
+        DELETE.style.display = "none"; 
         Solve();
         pressedKey = 0;
     }
 });
 
+
+deleteBtn.addEventListener("touchstart", function(event) {
+    event.stopPropagation();
+    Delete();
+});
+
+plusTwoBtn.addEventListener("touchstart", function(event) {
+    event.stopPropagation(); 
+    Plus2();
+});
 
 addEventListener("touchstart", function(event) {
     if (banana == 0) {
@@ -146,11 +234,17 @@ addEventListener("touchstart", function(event) {
         pressedKey = 1;
     } else {
         clearInterval(intervalId); //stops the timer
-        localStorage.setItem("Solve"+localStorage.length, timerContent.textContent); //sets the time in local storage
+        List.push(parseFloat(timerContent.textContent).toFixed(2));
+        localStorage.setItem("List", JSON.stringify(List)); //sets the time in local storage
         document.body.style.backgroundColor = "red";
-        NumberS.textContent = "Number of Solves: " + (localStorage.length);
+        NumberS.textContent = "Number of Solves: " + (List.length);
+        plus_two.style.display = "block"; 
+        DELETE.style.display = "block"; 
         Bsolvefunc();
         CalcAo5();
+        CalcAo12();
+        CalcAo50();
+        Wsolvefunc();
         title.textContent = "PRESS TO START";
         banana = 0;
         generateScramble();
@@ -160,6 +254,8 @@ addEventListener("touchstart", function(event) {
 addEventListener("touchend", function(event) {
     if (pressedKey == 1) {
         title.textContent = "PRESS TO END";
+        plus_two.style.display = "none"; 
+        DELETE.style.display = "none"; 
         Solve();
         pressedKey = 0;
     }
