@@ -29,7 +29,7 @@ body{
     position: fixed;
     bottom: 10vh;
     left: 0;
-    font-size: 2.5vmax;
+    font-size: 2.2vmax;
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
     margin-top: 20px;
@@ -38,7 +38,7 @@ body{
     position: fixed;
     bottom: 5vh;
     left: 0;
-    font-size: 2.5vmax;
+    font-size: 2.2vmax;
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
 }
@@ -48,7 +48,7 @@ body{
     bottom: 0vh;
     left: 0;
     /* top: 50vh; */
-    font-size: 2.5vmax;
+    font-size: 2.2vmax;
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
     margin-top: 20px;
@@ -58,7 +58,7 @@ body{
     position: fixed;
     bottom: 5vh;
     right: 0;
-    font-size: 2.5vmax;
+    font-size: 2.2vmax;
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
     margin-top: 20px;
@@ -67,7 +67,7 @@ body{
     position: fixed;
     bottom: 0vh;
     right: 0;
-    font-size: 2.5vmax;
+    font-size: 2.2vmax;
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
     margin-top: 20px;
