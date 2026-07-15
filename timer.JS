@@ -17,13 +17,14 @@ let Ao12 = document.getElementById("Ao12");
 let Ao50 = document.getElementById("Ao50");
 const deleteBtn = document.getElementById("delete");
 const plusTwoBtn = document.getElementById("plus-two");
-
+let SCramble = document.getElementById("scramble");
 if(localStorage.getItem("SolveBest") == null) {
     localStorage.setItem("SolveBest", Infinity);
 }
 if(localStorage.getItem("SolveWorst") == null) {
     localStorage.setItem("SolveWorst", 0);
 }
+
 function generateScramble() {
   var array = new Array(" U", " D", " R", " L", " F", " B")
   var switches = ["", "\'", "2"]; 
@@ -44,15 +45,25 @@ function generateScramble() {
   for(i=0; i<20; i++) {
      scramble += array2[i];
   }
-  document.getElementById("scramble").innerHTML = scramble; // Display the scramble
+  SCramble.textContent = scramble;
 }
 
 function Solve() {
     timer = 0;
+    timerContent.innerHTML = "";
+    SCramble.style.fontSize = "4vmax";
     banana = 1;
+    Ao5.style.display = "none"; 
+    Ao12.style.display = "none"; 
+    NumberS.style.display = "none"; 
+    Ao50.style.display = "none"; 
+    Bsolve.style.display = "none"; 
+    Wsolve.style.display = "none"; 
+    timerContent.style.display = "none";
     intervalId = setInterval(() => {
         timer = timer+0.01;
-        timerContent.innerHTML = (parseFloat(timer)).toFixed(2);;
+        SCramble.textContent = (parseFloat(timer)).toFixed(2);;
+        timerContent.textContent = (parseFloat(timer)).toFixed(2);;
     }, 10);
 }
 function CalcAo5() {
@@ -143,6 +154,7 @@ function Delete() {
     }
 }
 function Plus2() {
+    event.preventDefault();
         if (localStorage.getItem("SolveBest") == parseFloat(List[List.length - 1])){
             Bsolve.textContent ="Best Solve: " +parseFloat(localStorage.getItem("SolveBest2")).toFixed(2);
             localStorage.setItem("SolveBest", localStorage.getItem("SolveBest2"));
@@ -195,12 +207,20 @@ addEventListener("keydown", function(event) {
         NumberS.textContent = "Number of Solves: " + (List.length);
         plus_two.style.display = "block"; 
         DELETE.style.display = "block"; 
+        SCramble.style.fontSize = "2.7vmax";
+        Ao5.style.display = "block"; 
+        Ao12.style.display = "block"; 
+        NumberS.style.display = "block"; 
+        Ao50.style.display = "block"; 
+        Bsolve.style.display = "block"; 
+        Wsolve.style.display = "block"; 
+        timerContent.style.display = "Block";
         Bsolvefunc();
         CalcAo5();
         CalcAo12();
         CalcAo50();
         Wsolvefunc();
-        title.textContent = "PRESS TO START";
+        title.textContent = "HOLD TO START";
         banana = 0;
         generateScramble();
     }
@@ -209,7 +229,7 @@ addEventListener("keydown", function(event) {
 
 addEventListener("keyup", function(event) {
     if (pressedKey == 1) {
-        title.textContent = "PRESS TO END";
+        title.textContent = "CLICK TO END";
         plus_two.style.display = "none"; 
         DELETE.style.display = "none"; 
         Solve();
@@ -240,12 +260,20 @@ addEventListener("touchstart", function(event) {
         NumberS.textContent = "Number of Solves: " + (List.length);
         plus_two.style.display = "block"; 
         DELETE.style.display = "block"; 
+        SCramble.style.fontSize = "2.7vmax";
+        Ao5.style.display = "block"; 
+        Ao12.style.display = "block"; 
+        NumberS.style.display = "block"; 
+        Ao50.style.display = "block"; 
+        Bsolve.style.display = "block"; 
+        Wsolve.style.display = "block"; 
+        timerContent.style.display = "Block";
         Bsolvefunc();
         CalcAo5();
         CalcAo12();
         CalcAo50();
         Wsolvefunc();
-        title.textContent = "PRESS TO START";
+        title.textContent = "HOLD TO START";
         banana = 0;
         generateScramble();
     }
