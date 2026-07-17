@@ -1,5 +1,3 @@
-import { randomScrambleForEvent } from "https://cdn.cubing.net/js/cubing/scramble";
-
 let timerContent = document.getElementById("timer");
 let title = document.getElementById("headline");
 let banana = 0;
@@ -28,22 +26,12 @@ if(localStorage.getItem("SolveWorst") == null) {
     localStorage.setItem("SolveWorst", 0);
 }
 
-async function generateScramble() {
-    try {
-        SCramble.textContent = "Generating scramble...";
-
-        // "333" is the official WCA event ID for a standard 3x3x3 cube
-        const scrambleObject = await randomScrambleForEvent("333");
-        
-        // Convert the scramble object to a readable string
-        const scrambleString = scrambleObject.toString();
-
-        // Update your UI element
-        SCramble.textContent = "Scramble: " + scrambleString;
-    } catch (error) {
-        console.error("Scramble generation failed:", error);
-        SCramble.textContent = "Error generating scramble.";
-    }
+function generateScramble() {
+    let seeded_scramble = new Scrambow()
+    .setType('333')
+    .setSeed((Math.random*1000000))
+    .get();
+    SCramble.textContent = seeded_scramble[0].scramble_string;
 }
 
 function Solve() {
