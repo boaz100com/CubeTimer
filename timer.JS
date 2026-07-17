@@ -1,7 +1,7 @@
 let timerContent = document.getElementById("timer");
 let title = document.getElementById("headline");
 let banana = 0;
-let timer = 0;
+let timer = 0; //b
 let intervalId = 10;
 let Ao5 = document.getElementById("Ao5");
 let NumberS = document.getElementById("NumberS");
