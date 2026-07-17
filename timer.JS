@@ -29,7 +29,7 @@ if(localStorage.getItem("SolveWorst") == null) {
 function generateScramble() {
     let seeded_scramble = new Scrambow()
     .setType('333')
-    .setSeed((Math.random*1000000))
+    .setSeed(((Math.random*1000000)+1))
     .get();
     SCramble.textContent = seeded_scramble[0].scramble_string;
 }
