@@ -29,7 +29,7 @@ if(localStorage.getItem("SolveWorst") == null) {
 function generateScramble() {
     let seeded_scramble = new Scrambow()
     .setType('333')
-    .setSeed(((Math.random*1000000)+1))
+    .setSeed((Math.random*1000000))
     .get();
     SCramble.textContent = seeded_scramble[0].scramble_string;
 }
@@ -96,10 +96,10 @@ function Bsolvefunc() {
         let numericList = List.map(num => parseFloat(num));
         let best = Math.min(...numericList);
         localStorage.setItem("SolveBest", best);
-        Bsolve.textContent = "Best Solve: " + best.toFixed(2);
+        Bsolve.textContent = "PB: " + best.toFixed(2);
     } else{
         localStorage.setItem("SolveBest", Infinity);
-        Bsolve.textContent = "Best Solve: N/A";
+        Bsolve.textContent = "PB: N/A";
 
     }
 }
@@ -109,10 +109,10 @@ function Wsolvefunc() {
         let numericList2 = List.map(num => parseFloat(num));
         let Worst = Math.max(...numericList2);
         localStorage.setItem("SolveWorst", Worst);
-        Wsolve.textContent = "Worst Solve: " + Worst.toFixed(2);
+        Wsolve.textContent = "PW: " + Worst.toFixed(2);
     } else{
         localStorage.setItem("SolveWorst", 0);
-        Wsolve.textContent = "Worst Solve: N/A";
+        Wsolve.textContent = "PW: N/A";
     }
 }
 
@@ -120,17 +120,17 @@ function Delete() {
     if (List.length > 0) {
         if (List.length-1 > 0) {
             if (localStorage.getItem("SolveBest") == parseFloat(List[List.length - 1])){
-                Bsolve.textContent ="Best Solve: " +parseFloat(localStorage.getItem("SolveBest2")).toFixed(2);
+                Bsolve.textContent ="PB: " +parseFloat(localStorage.getItem("SolveBest2")).toFixed(2);
                 localStorage.setItem("BestSolve", parseFloat(localStorage.getItem("SolveBest2")).toFixed(2))
             } 
             if (localStorage.getItem("SolveWorst") == parseFloat(List[List.length - 1])){
-                Wsolve.textContent ="Worst Solve: " +parseFloat(localStorage.getItem("SolveWorst2")).toFixed(2);
+                Wsolve.textContent ="PW: " +parseFloat(localStorage.getItem("SolveWorst2")).toFixed(2);
                 localStorage.setItem("WestSolve", parseFloat(localStorage.getItem("WolveBest2")).toFixed(2))
             } 
         } else {
-            Bsolve.textContent = "Best Solve: N/A";
+            Bsolve.textContent = "PB: N/A";
             localStorage.setItem("SolveBest", Infinity);
-            Wsolve.textContent = "Worst Solve: N/A";
+            Wsolve.textContent = "PW: N/A";
             localStorage.setItem("SolveWorst", 0);
         }
         List.pop();
@@ -175,9 +175,9 @@ addEventListener("keydown", function(event) {
     if (event.key == "p") {
         localStorage.clear();
         List = [];
-        Bsolve.textContent = "Best Solve: N/A";
+        Bsolve.textContent = "PB: N/A";
         localStorage.setItem("SolveBest", Infinity);
-        Wsolve.textContent = "Worst Solve: N/A";
+        Wsolve.textContent = "PW: N/A";
         localStorage.setItem("SolveWorst", 0);
         NumberS.textContent = "Number of Solves: " + (List.length); 
         timerContent.textContent = "0.00";
