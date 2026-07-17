@@ -1,4 +1,3 @@
-let pressedKey = 0;
 let timerContent = document.getElementById("timer");
 let title = document.getElementById("headline");
 let banana = 0;
@@ -18,6 +17,8 @@ let Ao50 = document.getElementById("Ao50");
 const deleteBtn = document.getElementById("delete");
 const plusTwoBtn = document.getElementById("plus-two");
 let SCramble = document.getElementById("scramble");
+let isReadyToStart = false;
+let holdTimeoutId = null;
 if(localStorage.getItem("SolveBest") == null) {
     localStorage.setItem("SolveBest", Infinity);
 }
@@ -104,37 +105,42 @@ function CalcAo50() {
         Ao50.textContent = "Ao50: N/A";
     }
 }
-
 function Bsolvefunc() {
-    if (List.length > 0 && (parseFloat(List[List.length - 1]) < parseFloat(localStorage.getItem("SolveBest")))) {
-        localStorage.setItem("SolveBest2", localStorage.getItem("SolveBest"));
-        localStorage.setItem("SolveBest", parseFloat(List[List.length - 1]));
-        Bsolve.textContent = "Best Solve: " + (parseFloat(List[List.length - 1])).toFixed(2);
-    } if (List.length >0){
-        Bsolve.textContent = "Best Solve: " + (parseFloat(localStorage.getItem("SolveBest")).toFixed(2))
-    } else {
-        Bsolve.textContent = "Best Solve: N/A"
+    if(List.length >1){
+        // localStorage.setItem("SolveBest2", localStorage.getItem("SolveBest"));
+        let numericList = List.map(num => parseFloat(num));
+        let best = Math.min(...numericList);
+        localStorage.setItem("SolveBest", best);
+        Bsolve.textContent = "Best Solve: " + best.toFixed(2);
+    } else{
+        localStorage.setItem("SolveBest", Infinity);
+        Bsolve.textContent = "Best Solve: N/A";
+
     }
 }
 function Wsolvefunc() {
-    if (List.length > 0 && parseFloat(List[List.length - 1]) > parseFloat(localStorage.getItem("SolveWorst"))) {
-        localStorage.setItem("SolveWorst2", localStorage.getItem("SolveWorst"));
-        localStorage.setItem("SolveWorst", parseFloat(List[List.length - 1]));
-        Wsolve.textContent = "Worst Solve: " + (parseFloat(List[List.length - 1])).toFixed(2);
-    } if (List.length >0){
-        Wsolve.textContent = "Worst Solve: " + (parseFloat(localStorage.getItem("SolveWorst")).toFixed(2))
-    } else {
-        Wsolve.textContent = "Worst Solve: N/A"
+    if(List.length >1){
+        // localStorage.setItem("SolveWorst2", localStorage.getItem("SolveWorst"));
+        let numericList2 = List.map(num => parseFloat(num));
+        let Worst = Math.max(...numericList2);
+        localStorage.setItem("SolveWorst", Worst);
+        Wsolve.textContent = "Worst Solve: " + Worst.toFixed(2);
+    } else{
+        localStorage.setItem("SolveWorst", 0);
+        Wsolve.textContent = "Worst Solve: N/A";
     }
 }
+
 function Delete() {
     if (List.length > 0) {
         if (List.length-1 > 0) {
             if (localStorage.getItem("SolveBest") == parseFloat(List[List.length - 1])){
                 Bsolve.textContent ="Best Solve: " +parseFloat(localStorage.getItem("SolveBest2")).toFixed(2);
+                localStorage.setItem("BestSolve", parseFloat(localStorage.getItem("SolveBest2")).toFixed(2))
             } 
             if (localStorage.getItem("SolveWorst") == parseFloat(List[List.length - 1])){
                 Wsolve.textContent ="Worst Solve: " +parseFloat(localStorage.getItem("SolveWorst2")).toFixed(2);
+                localStorage.setItem("WestSolve", parseFloat(localStorage.getItem("WolveBest2")).toFixed(2))
             } 
         } else {
             Bsolve.textContent = "Best Solve: N/A";
@@ -148,6 +154,8 @@ function Delete() {
         timerContent.textContent = "0.00";
         plus_two.style.display = "none"; 
         DELETE.style.display = "none"; 
+        Bsolvefunc();
+        Wsolvefunc();
         CalcAo5();
         CalcAo12();
         CalcAo50();
@@ -155,14 +163,12 @@ function Delete() {
 }
 function Plus2() {
     event.preventDefault();
-        if (localStorage.getItem("SolveBest") == parseFloat(List[List.length - 1])){
-            Bsolve.textContent ="Best Solve: " +parseFloat(localStorage.getItem("SolveBest2")).toFixed(2);
-            localStorage.setItem("SolveBest", localStorage.getItem("SolveBest2"));
-        } 
-    let timePlus2 = (parseFloat(timerContent.textContent)+2).toFixed(2);
-    List[List.length - 1] = timePlus2;
-    timerContent.textContent = timePlus2;
+    let timer2 = (parseFloat(timerContent.textContent)+2).toFixed(2)
+    List[List.length - 1] = timer2;
+    timerContent.textContent = timer2;
     localStorage.setItem("List", JSON.stringify(List));
+    Bsolvefunc();
+    Wsolvefunc();
     CalcAo5();
     CalcAo12();
     CalcAo50();
@@ -197,8 +203,14 @@ addEventListener("keydown", function(event) {
         Wsolvefunc();
     } else {
     if (banana == 0) {
-        document.body.style.backgroundColor = "green";
-        pressedKey = 1;
+        if (event.repeat) return;
+        document.body.style.backgroundColor = "orange"; // Visual cue: Holding/Waiting
+        title.textContent = "HOLD";
+        holdTimeoutId = setTimeout(() => {
+            isReadyToStart = true;
+            document.body.style.backgroundColor = "green";
+            title.textContent = "RELEASE TO START";
+    }, 500);
     } else {
         clearInterval(intervalId); //stops the timer
         List.push(parseFloat(timerContent.textContent).toFixed(2));
@@ -228,12 +240,18 @@ addEventListener("keydown", function(event) {
 });
 
 addEventListener("keyup", function(event) {
-    if (pressedKey == 1) {
+    if (isReadyToStart == true) {
+        this.clearTimeout(holdTimeoutId);
         title.textContent = "CLICK TO END";
         plus_two.style.display = "none"; 
         DELETE.style.display = "none"; 
         Solve();
-        pressedKey = 0;
+        isReadyToStart = false;
+    } else{
+        this.clearTimeout(holdTimeoutId);
+        document.body.style.backgroundColor = "red";
+        title.textContent = "HOLD TO START";
+        isReadyToStart = false;
     }
 });
 
@@ -250,8 +268,14 @@ plusTwoBtn.addEventListener("touchstart", function(event) {
 
 addEventListener("touchstart", function(event) {
     if (banana == 0) {
-        document.body.style.backgroundColor = "green";
-        pressedKey = 1;
+        if (event.repeat) return;
+        document.body.style.backgroundColor = "orange"; // Visual cue: Holding/Waiting
+        title.textContent = "HOLD";
+        holdTimeoutId = setTimeout(() => {
+            isReadyToStart = true;
+            document.body.style.backgroundColor = "green";
+            title.textContent = "RELEASE TO START";
+    }, 500);
     } else {
         clearInterval(intervalId); //stops the timer
         List.push(parseFloat(timerContent.textContent).toFixed(2));
@@ -280,11 +304,17 @@ addEventListener("touchstart", function(event) {
 });
 
 addEventListener("touchend", function(event) {
-    if (pressedKey == 1) {
-        title.textContent = "PRESS TO END";
+    if (isReadyToStart == true) {
+        this.clearTimeout(holdTimeoutId);
+        title.textContent = "CLICK TO END";
         plus_two.style.display = "none"; 
         DELETE.style.display = "none"; 
         Solve();
-        pressedKey = 0;
+        isReadyToStart = false;
+    } else{
+        this.clearTimeout(holdTimeoutId);
+        document.body.style.backgroundColor = "red";
+        title.textContent = "HOLD TO START";
+        isReadyToStart = false;
     }
 });
