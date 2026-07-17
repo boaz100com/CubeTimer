@@ -1,3 +1,5 @@
+import { randomScrambleForEvent } from "https://cdn.cubing.net/js/cubing/scramble";
+
 let timerContent = document.getElementById("timer");
 let title = document.getElementById("headline");
 let banana = 0;
@@ -26,27 +28,22 @@ if(localStorage.getItem("SolveWorst") == null) {
     localStorage.setItem("SolveWorst", 0);
 }
 
-function generateScramble() {
-  var array = new Array(" U", " D", " R", " L", " F", " B")
-  var switches = ["", "\'", "2"]; 
-  var array2 = new Array(); // The Scramble.
-  var last = ''; // Last used letter
-  var random = 0;
-  for (var i = 0; i < 20; i++) {
-      // the following loop runs until the last one 
-      // letter is another of the new one
-      do {
-         random = Math.floor(Math.random() * array.length);
-      } while (last == array[random]) 
-  last = array[random];
-  var scrambleItem = array[random] + switches[parseInt(Math.random()*switches.length)];
-  array2.push(scrambleItem); // Get letters in random order in the array.
-  }
-  var scramble = "Scramble: ";
-  for(i=0; i<20; i++) {
-     scramble += array2[i];
-  }
-  SCramble.textContent = scramble;
+async function generateScramble() {
+    try {
+        SCramble.textContent = "Generating scramble...";
+
+        // "333" is the official WCA event ID for a standard 3x3x3 cube
+        const scrambleObject = await randomScrambleForEvent("333");
+        
+        // Convert the scramble object to a readable string
+        const scrambleString = scrambleObject.toString();
+
+        // Update your UI element
+        SCramble.textContent = "Scramble: " + scrambleString;
+    } catch (error) {
+        console.error("Scramble generation failed:", error);
+        SCramble.textContent = "Error generating scramble.";
+    }
 }
 
 function Solve() {
