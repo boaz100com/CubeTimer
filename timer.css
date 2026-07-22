@@ -1,7 +1,7 @@
 
 body{
     user-select: none;
-    -webkit-user-select: none; /* Safarii */
+    -webkit-user-select: none; /* Safari */
     background-color: #1f79e7;
     color: #000000;
     position: relative;
@@ -16,9 +16,13 @@ body{
     margin-top: 20px;
 }
 #headline{
-    position: relative;
+    position: absolute;
+    display: flex;
     text-align: center;
-    top: 1vh;
+    justify-content: center;
+    transform: translate(-50%, -50%);
+    top: 10vh;
+    left: 50%;
     font-size: 2.7vmax;
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
@@ -107,7 +111,34 @@ position: absolute;
     
     width: auto;
 }
-.arrow { width: 80px; height: 4.2vh; font-size: 3.8vh;; font-weight: bold; margin: 4px; cursor: pointer; background: #0e0f0f; border: 2px solid #caecd6; color: #ffffff; border-radius: 12px;
+
+#History1{
+    
+    position: fixed;
+    top: 5vh;          /* Clean distance from the top edge */
+    right: 20px;        /* Clean distance from the right edge */
+    display: flex;
+    width: auto;
+}
+#deletesolve{
+    position: fixed;
+    top: 5vh;          /* Clean distance from the top edge */
+    left: 20px;        /* Clean distance from the right edge */
+    display: flex;
+    width: auto;
+}
+#chooseCube{ 
+    position: fixed;
+    top: 5vh;          /* Clean distance from the top edge */
+    left: 20px;        /* Clean distance from the right edge */
+    display: flex;
+    width: auto;
+}
+#display{
+    position: relative;
+    top: 10vh;
+}
+.arrow { width: auto; height: auto; font-size: 3.8vh;; font-weight: bold; margin: 4px; cursor: pointer; background: #0e0f0f; border: 2px solid #caecd6; color: #ffffff; border-radius: 12px;
 }
 
 #timer{
