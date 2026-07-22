@@ -269,10 +269,12 @@ function chooseCube(){
         cube = cube;
         return;
     }
+    
     title.textContent = cube;
     scramble = JSON.parse(localStorage.getItem(`scramble_${cube}`)) || [];
     List = JSON.parse(localStorage.getItem(`List_${cube}`)) || [];
     NumberS.textContent = "Number of Solves: " + List.length;
+    timer.textContent = "0.00";
     generateScramble();
     Bsolvefunc();
     Wsolvefunc();
