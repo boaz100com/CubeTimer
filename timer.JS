@@ -151,7 +151,9 @@ function Delete(num) {
             localStorage.setItem(`SolveWorst_${cube}`, 0);
         }
         List.splice(num, 1);
-        localStorage.setItem("List", JSON.stringify(`List_${cube}`));
+        scramble.splice(num, 1);
+        localStorage.setItem(`List_${cube}`, JSON.stringify(List));
+        localStorage.setItem(`scramble_${cube}`, JSON.stringify(scramble));
         NumberS.textContent = "Number of Solves: " + (List.length);
         timerContent.textContent = "0.00";
         plus_two.style.display = "none"; 
