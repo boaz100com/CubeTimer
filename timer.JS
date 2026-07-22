@@ -1,4 +1,5 @@
 let cube = 333;
+let cubeC = 333;
 let timerContent = document.getElementById("timer");
 let title = document.getElementById("headline");
 let banana = 0;
@@ -28,6 +29,8 @@ let history = document.getElementById("History1");
 let ChooseCube = document.getElementById("chooseCube");
 let displayoff = 0;
 let currentScramble = "";
+title.textContent = cube;
+
 if(localStorage.getItem(`SolveBest_${cube}`) == null) {
     localStorage.setItem(`SolveBest_${cube}`, Infinity);
 }
@@ -37,7 +40,7 @@ if(localStorage.getItem(`SolveWorst_${cube}`) == null) {
 
 function generateScramble() {
     let seeded_scramble = new Scrambow()
-    .setType(cube.toString())
+    .setType(cubeC.toString())
     .setSeed((Math.random*1000000))
     .get();
     currentScramble = seeded_scramble[0].scramble_string;
@@ -240,7 +243,7 @@ function deletesolve(){
         CalcAo50();
         Bsolvefunc();
         Wsolvefunc();
-    }else{
+    }else if (solvenum !== null){
         Delete(parseInt(parseInt(solvenum) -1));
         displayoff =0;
         History1();
@@ -252,7 +255,20 @@ function chooseCube(){
     if (document.activeElement && document.activeElement.tagName === "BUTTON") {
         document.activeElement.blur();
     }
-    cube = prompt("choose Cube type: 222, 333, 444, 555, 666, 777, clock, fto, minx, pyram, skewb, sq1, clockoptimal : " );
+    let validcubes = ["222", "333", "444", "555", "666", "777", "clock", "fto", "minx", "pyram", "skewb", "sq1", "clockoptimal"];
+    cubeA = prompt("Choose Cube type: 222, 333, 444, 555, 666, 777, OH, clock, fto, minx, pyram, skewb, sq1, clockoptimal : " );
+    if(cubeA == "OH" || cubeA == "oh"){
+        cubeA = "OH"
+        cubeC = 333;
+        cube = cubeA;
+    } else if (validcubes.includes(cubeA)){
+        cube = cubeA;
+        cubeC = cubeA;
+    } else{
+        alert("Invalid Input")
+        cube = cube;
+        return;
+    }
     title.textContent = cube;
     scramble = JSON.parse(localStorage.getItem(`scramble_${cube}`)) || [];
     List = JSON.parse(localStorage.getItem(`List_${cube}`)) || [];
