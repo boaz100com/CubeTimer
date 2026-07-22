@@ -5,19 +5,28 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>TIMER</title>
         <link rel="stylesheet" href="timer.css">
+        <link rel="icon" type="image/png" href="assets/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+        <link rel="shortcut icon" href="assets/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
+        <link rel="manifest" href="assets/site.webmanifest" />
     </head>
     <body>
         <div id="timer">0.00</div>
         <div id="scramble"></div>
         <div id = "headline">Hold TO START</div>
-        <div id = "Ao5">AO5: N/A</div>         <!-- b -->
-        <div id = "Ao12">AO12: N/A</div>
+        <div id = "Ao5">AO5: N/A</div>
+        <div id = "Ao12">AO12: N/A</div> 
         <div id = "Ao50">AO50: N/A</div>
         <div id = "NumberS"></div>
         <div id = "Bsolve">PB: N/A</div>
         <div id = "Wsolve">PW: N/A</div>
+        <div id = "display"></div>
         <button class="arrow" id="plus-two" onclick="Plus2()">+2s</button>
-        <button class="arrow" id="delete" onclick="Delete()">Delete</button>
+        <button class="arrow" id="delete" onclick="DeleteLast()">Delete</button>
+        <button class="arrow" id="History1" onclick="History1()">History</button>
+        <button class="arrow" id="deletesolve" onclick="deletesolve()">Delete</button>
+        <button class= "arrow" id = "chooseCube" onclick="chooseCube()">Cube</button>
         <script src="scrambow-browser.js"></script>
         <script src="timer.JS"></script> 
     </body>
