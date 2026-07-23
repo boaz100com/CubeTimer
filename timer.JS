@@ -166,7 +166,7 @@ function Delete(num) {
     }
 }
 function DeleteLast(){
-    Delete((List.length -1));
+    Delete((List.length-1));
 }
 function Plus2() {
     event.preventDefault();
@@ -376,7 +376,6 @@ addEventListener("keyup", function(event) {
 
 deleteBtn.addEventListener("touchstart", function(event) {
     event.stopPropagation();
-    Delete();
 });
 
 plusTwoBtn.addEventListener("touchstart", function(event) {
