@@ -229,10 +229,10 @@ function History1(){
 function deletesolve(){
     let solvenum = prompt("Choose a Solve to Delete or All");
     if(solvenum == "all" || solvenum == "ALL" || solvenum == "All"){
-        localStorage.clear();
         scramble = [];
         List = [];
-        Bsolve.textContent = "PB: N/A";
+        localStorage.setItem(`List_${cube}`, JSON.stringify(List));
+        localStorage.setItem(`scramble_${cube}`, JSON.stringify(scramble));
         localStorage.setItem(`SolveBest_${cube}`, Infinity);
         Wsolve.textContent = "PW: N/A";
         localStorage.setItem(`SolveWorst_${cube}`, 0);
@@ -396,7 +396,7 @@ addEventListener("touchstart", function(event) {
             document.body.style.backgroundColor = "green";
             title.textContent = "RELEASE TO START";
             isReadyToStart = true;
-    }, 500);
+    }, 3000);
     } if(banana ==1) {
         clearInterval(intervalId); //stops the timer
         List.push(parseFloat(timerContent.textContent).toFixed(2));
