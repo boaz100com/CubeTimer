@@ -385,9 +385,11 @@ plusTwoBtn.addEventListener("touchstart", function(event) {
 
 addEventListener("touchstart", function(event) {
     if (banana == 0) {
+        if (event.touches.length > 1) return;
         if (event.repeat) return;
         document.body.style.backgroundColor = "orange"; // Visual cue: Holding/Waiting
         title.textContent = "HOLD";
+        clearTimeout(holdTimeoutId);
         holdTimeoutId = setTimeout(() => {
             isReadyToStart = true;
             document.body.style.backgroundColor = "green";
