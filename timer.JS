@@ -396,7 +396,7 @@ addEventListener("touchstart", function(event) {
             document.body.style.backgroundColor = "green";
             title.textContent = "RELEASE TO START";
             isReadyToStart = true;
-    }, 500);
+        }, 500);
     } if(banana ==1) {
         clearInterval(intervalId); //stops the timer
         List.push(parseFloat(timerContent.textContent).toFixed(2));
