@@ -298,63 +298,65 @@ display.style.display = "none";
 deletesolveB.style.display = "none";
 
 addEventListener("keydown", function(event) {
-    if (event.key == "p") {
-        localStorage.clear();
-        scramble = [];
-        List = [];
-        Bsolve.textContent = "PB: N/A";
-        localStorage.setItem(`SolveBest_${cube}`, Infinity);
-        Wsolve.textContent = "PW: N/A";
-        localStorage.setItem(`SolveWorst_${cube}`, 0);
-        NumberS.textContent = "Number of Solves: " + (List.length); 
-        timerContent.textContent = "0.00";
-        CalcAo5();
-        CalcAo12();
-        CalcAo50();
-        Bsolvefunc();
-        Wsolvefunc();
-    }if (event.key === " " && document.activeElement.tagName === "BUTTON") {
-        event.preventDefault();
-    } else {
-    if (banana == 0) {
-        if (event.repeat) return;
-        document.body.style.backgroundColor = "orange"; // Visual cue: Holding/Waiting
-        title.textContent = "HOLD";
-        holdTimeoutId = setTimeout(() => {
-            isReadyToStart = true;
-            document.body.style.backgroundColor = "green";
-            title.textContent = "RELEASE TO START";
-    }, 500);
-    } if(banana ==1) {
-        clearInterval(intervalId); //stops the timer
-        List.push(parseFloat(timerContent.textContent).toFixed(2));
-        scramble.push(currentScramble);
-        localStorage.setItem(`scramble_${cube}`, JSON.stringify(scramble));
-        localStorage.setItem(`List_${cube}`, JSON.stringify(List));
-        document.body.style.backgroundColor = "red";
-        NumberS.textContent = "Number of Solves: " + (List.length);
-        plus_two.style.display = "block"; 
-        DELETE.style.display = "block"; 
-        SCramble.style.fontSize = "2.7vmax";
-        Ao5.style.display = "block"; 
-        Ao12.style.display = "block"; 
-        NumberS.style.display = "block"; 
-        Ao50.style.display = "block"; 
-        Bsolve.style.display = "block"; 
-        Wsolve.style.display = "block"; 
-        timerContent.style.display = "Block";
-        history.style.display = "block";
-        ChooseCube.style.display = "block";
-        Bsolvefunc();
-        CalcAo5();
-        CalcAo12();
-        CalcAo50();
-        Wsolvefunc();
-        title.textContent = "HOLD TO START";
-        banana = 0;
-        generateScramble();
-    }
-    }
+    if(event.code === "Space"){
+        if (event.key == "p") {
+            localStorage.clear();
+            scramble = [];
+            List = [];
+            Bsolve.textContent = "PB: N/A";
+            localStorage.setItem(`SolveBest_${cube}`, Infinity);
+            Wsolve.textContent = "PW: N/A";
+            localStorage.setItem(`SolveWorst_${cube}`, 0);
+            NumberS.textContent = "Number of Solves: " + (List.length); 
+            timerContent.textContent = "0.00";
+            CalcAo5();
+            CalcAo12();
+            CalcAo50();
+            Bsolvefunc();
+            Wsolvefunc();
+        }if (event.key === " " && document.activeElement.tagName === "BUTTON") {
+            event.preventDefault();
+        } else {
+        if (banana == 0) {
+            if (event.repeat) return;
+            document.body.style.backgroundColor = "orange"; // Visual cue: Holding/Waiting
+            title.textContent = "HOLD";
+            holdTimeoutId = setTimeout(() => {
+                isReadyToStart = true;
+                document.body.style.backgroundColor = "green";
+                title.textContent = "RELEASE TO START";
+        }, 500);
+        } if(banana ==1) {
+            clearInterval(intervalId); //stops the timer
+            List.push(parseFloat(timerContent.textContent).toFixed(2));
+            scramble.push(currentScramble);
+            localStorage.setItem(`scramble_${cube}`, JSON.stringify(scramble));
+            localStorage.setItem(`List_${cube}`, JSON.stringify(List));
+            document.body.style.backgroundColor = "red";
+            NumberS.textContent = "Number of Solves: " + (List.length);
+            plus_two.style.display = "block"; 
+            DELETE.style.display = "block"; 
+            SCramble.style.fontSize = "2.7vmax";
+            Ao5.style.display = "block"; 
+            Ao12.style.display = "block"; 
+            NumberS.style.display = "block"; 
+            Ao50.style.display = "block"; 
+            Bsolve.style.display = "block"; 
+            Wsolve.style.display = "block"; 
+            timerContent.style.display = "Block";
+            history.style.display = "block";
+            ChooseCube.style.display = "block";
+            Bsolvefunc();
+            CalcAo5();
+            CalcAo12();
+            CalcAo50();
+            Wsolvefunc();
+            title.textContent = "HOLD TO START";
+            banana = 0;
+            generateScramble();
+        }
+        }
+}
 });
 
 addEventListener("keyup", function(event) {
@@ -391,10 +393,10 @@ addEventListener("touchstart", function(event) {
         title.textContent = "HOLD";
         clearTimeout(holdTimeoutId);
         holdTimeoutId = setTimeout(() => {
-            isReadyToStart = true;
             document.body.style.backgroundColor = "green";
             title.textContent = "RELEASE TO START";
-    }, 500);
+            isReadyToStart = true;
+    }, 3000);
     } if(banana ==1) {
         clearInterval(intervalId); //stops the timer
         List.push(parseFloat(timerContent.textContent).toFixed(2));
