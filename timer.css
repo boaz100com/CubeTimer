@@ -7,9 +7,6 @@ body{
     color: #000000;
     position: relative;
 }
-html, body {
-    overscroll-behavior: none; 
-}
 #scramble{
     position: relative;
     text-align: center;
