@@ -1,7 +1,5 @@
 
 body{
-    overscroll-behavior-y: none;
-    touch-action: manipulation;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     user-select: none;
     -webkit-user-select: none; /* Safari */
@@ -10,11 +8,7 @@ body{
     position: relative;
 }
 html, body {
-    margin: 0;
-    padding: 0;
-    overscroll-behavior-y: none; 
-    touch-action: none; 
-    overflow: hidden;
+    overscroll-behavior: none; 
 }
 #scramble{
     position: relative;
