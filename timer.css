@@ -9,6 +9,13 @@ body{
     color: #000000;
     position: relative;
 }
+html, body {
+    margin: 0;
+    padding: 0;
+    overscroll-behavior-y: none; 
+    touch-action: none; 
+    overflow: hidden;
+}
 #scramble{
     position: relative;
     text-align: center;
