@@ -1,5 +1,7 @@
 
 body{
+    overscroll-behavior-y: none;
+    touch-action: manipulation;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     user-select: none;
     -webkit-user-select: none; /* Safari */
