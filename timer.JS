@@ -3,7 +3,7 @@ let cubeC = 333;
 let timerContent = document.getElementById("timer");
 let title = document.getElementById("headline");
 let banana = 0;
-let timer = 0; //##
+let timer = 0;
 let DisplayList =[];
 let intervalId = 10;
 let Ao5 = document.getElementById("Ao5");
@@ -204,7 +204,7 @@ function History1(){
         deletesolveB.style.display = "block";
         display.innerHTML = "";
         for(let i =0; i<List.length; i++){
-            display.insertAdjacentHTML("beforeend", `<p>${i + 1}. ${scramble[i]}: ${List[i]}</p>`);
+            display.insertAdjacentHTML("afterbegin", `<p>${i + 1}. ${scramble[i]}: ${List[i]}</p>`);
         }
     } else{
         banana =0;
@@ -386,6 +386,8 @@ plusTwoBtn.addEventListener("touchstart", function(event) {
 });
 
 addEventListener("touchstart", function(event) {
+    document.documentElement.style.overscrollBehaviorY = 'contain';
+    document.body.style.overscrollBehaviorY = 'contain';
     if (banana == 0) {
         if (event.touches.length > 1) return;
         if (event.repeat) return;
@@ -429,6 +431,8 @@ addEventListener("touchstart", function(event) {
 });
 
 addEventListener("touchend", function(event) {
+    document.documentElement.style.overscrollBehaviorY = 'auto';
+    document.body.style.overscrollBehaviorY = 'auto';
     if (isReadyToStart == true) {
         this.clearTimeout(holdTimeoutId);
         title.textContent = "CLICK TO END";
