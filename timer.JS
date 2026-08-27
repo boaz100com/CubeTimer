@@ -30,7 +30,6 @@ let ChooseCube = document.getElementById("chooseCube");
 let displayoff = 0;
 let currentScramble = "";
 title.textContent = cube;
-
 if(localStorage.getItem(`SolveBest_${cube}`) == null) {
     localStorage.setItem(`SolveBest_${cube}`, Infinity);
 }
@@ -48,6 +47,7 @@ function generateScramble() {
 }
 
 function Solve() {
+    let timerS = '0:00';
     timer = 0;
     timerContent.innerHTML = "";
     SCramble.style.fontSize = "4vmax";
@@ -60,13 +60,23 @@ function Solve() {
     Wsolve.style.display = "none"; 
     plus_two.style.display = "none"; 
     DELETE.style.display = "none"; 
-    timerContent.style.display = "none";
+    timerContent.style.display = "none"; 
     history.style.display = "none";
     ChooseCube.style.display = "none";
     intervalId = setInterval(() => {
         timer = timer+0.01;
         SCramble.textContent = (parseFloat(timer)).toFixed(2);;
         timerContent.textContent = (parseFloat(timer)).toFixed(2);;
+        if (timer >60) {
+            if (timer%60 < 10) {
+                timerS = Math.floor(timer / 60) +":0" + parseFloat(timer%60).toFixed(2);
+            } else {
+                timerS = Math.floor(timer / 60) +":" + parseFloat(timer%60).toFixed(2);
+            }
+            timerS = Math.floor(timer / 60) +":" + parseFloat(timer%60).toFixed(2);
+            timerContent.textContent = timerS;;
+            SCramble.textContent = timerS;;
+        }
     }, 10);
 }
 function CalcAo5() {
