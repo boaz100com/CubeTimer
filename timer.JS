@@ -285,6 +285,26 @@ function chooseCube(){
     CalcAo50();
 
 }
+let wakeLock = null;
+
+async function requestWakeLock() {
+    try {
+        if ("wakeLock" in navigator) {
+            wakeLock = await navigator.wakeLock.request("screen");
+            console.log("Screen will stay awake");
+        }
+    } catch (err) {
+        console.log("Wake Lock failed:", err);
+    }
+}
+
+async function releaseWakeLock() {
+    if (wakeLock) {
+        await wakeLock.release();
+        wakeLock = null;
+        console.log("Wake Lock released");
+    }
+}
 generateScramble();
 Bsolvefunc();
 Wsolvefunc();
@@ -419,6 +439,7 @@ addEventListener("touchstart", function(event) {
         timerContent.style.display = "Block";
         history.style.display = "block";
         ChooseCube.style.display = "block";
+        releaseWakeLock();
         Bsolvefunc();
         CalcAo5();
         CalcAo12();
@@ -434,6 +455,7 @@ addEventListener("touchend", function(event) {
     document.documentElement.style.overscrollBehaviorY = 'auto';
     document.body.style.overscrollBehaviorY = 'auto';
     if (isReadyToStart == true) {
+        requestWakeLock();
         this.clearTimeout(holdTimeoutId);
         title.textContent = "CLICK TO END";
         plus_two.style.display = "none"; 
