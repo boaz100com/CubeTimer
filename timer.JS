@@ -47,7 +47,7 @@ function generateScramble() {
 }
 
 function Solve() {
-    let timerS = '0:00';
+    let timerS = '0:00.00';
     timer = 0;
     timerContent.innerHTML = "";
     SCramble.style.fontSize = "4vmax";
