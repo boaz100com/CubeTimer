@@ -40,14 +40,14 @@ if(localStorage.getItem(`SolveWorst_${cube}`) == null) {
 function generateScramble() {
     let seeded_scramble = new Scrambow()
     .setType(cubeC.toString())
-    .setSeed((Math.random*1000000))
+    .setSeed((Math.random()*1000000))
     .get();
     currentScramble = seeded_scramble[0].scramble_string;
     SCramble.textContent = seeded_scramble[0].scramble_string;
 }
 
 function Solve() {
-    let timerS = '0:00.00';
+    let timerS = '0:00';
     timer = 0;
     timerContent.innerHTML = "";
     SCramble.style.fontSize = "4vmax";
@@ -65,17 +65,17 @@ function Solve() {
     ChooseCube.style.display = "none";
     intervalId = setInterval(() => {
         timer = timer+0.01;
-        SCramble.textContent = (parseFloat(timer)).toFixed(2);;
-        timerContent.textContent = (parseFloat(timer)).toFixed(2);;
         if (timer >60) {
             if (timer%60 < 10) {
-                timerS = Math.floor(timer / 60) +":" + "0" + parseFloat(timer%60).toFixed(2);
+                timerS = Math.floor(timer / 60) +":0" + parseFloat(timer%60).toFixed(2);
             } else {
                 timerS = Math.floor(timer / 60) +":" + parseFloat(timer%60).toFixed(2);
             }
-            timerS = Math.floor(timer / 60) +":" + parseFloat(timer%60).toFixed(2);
             timerContent.textContent = timerS;;
             SCramble.textContent = timerS;;
+        } else {
+            timerContent.textContent = (parseFloat(timer)).toFixed(2);;
+            SCramble.textContent = (parseFloat(timer)).toFixed(2);;
         }
     }, 10);
 }
@@ -223,7 +223,10 @@ function DeleteLast(){
     Delete((List.length-1));
 }
 function Plus2() {
-    // event.preventDefault();
+    console.log("LIST:", List);
+    console.log("LAST:", List[List.length - 1]);
+    console.log("TIMER:", timer);
+    event.preventDefault();
     let timer2 = "0:00";
     let timer1 = parseFloat(List[List.length - 1]);
     if (timer1 +2 >= 60 && (timer1+2)%60 < 10) {
@@ -479,6 +482,7 @@ plusTwoBtn.addEventListener("touchstart", function(event) {
 });
 
 addEventListener("touchstart", function(event) {
+    if (event.target.tagName === "BUTTON" || event.target.closest("#display")) return;
     document.documentElement.style.overscrollBehaviorY = 'contain';
     document.body.style.overscrollBehaviorY = 'contain';
     if (banana == 0) {
@@ -493,38 +497,38 @@ addEventListener("touchstart", function(event) {
             isReadyToStart = true;
         }, 500);
     } if(banana ==1) {
-        clearInterval(intervalId); //stops the timer
-        List.push(parseFloat(timerContent.textContent).toFixed(2));
-        scramble.push(currentScramble);
-        localStorage.setItem(`scramble_${cube}`, JSON.stringify(scramble));
-        localStorage.setItem(`List_${cube}`, JSON.stringify(List));
-        document.body.style.backgroundColor = "red";
-        NumberS.textContent = "Number of Solves: " + (List.length);
-        plus_two.style.display = "block"; 
-        DELETE.style.display = "block"; 
-        SCramble.style.fontSize = "2.7vmax";
-        Ao5.style.display = "block"; 
-        Ao12.style.display = "block"; 
-        NumberS.style.display = "block"; 
-        Ao50.style.display = "block"; 
-        Bsolve.style.display = "block"; 
-        Wsolve.style.display = "block"; 
-        timerContent.style.display = "Block";
-        history.style.display = "block";
-        ChooseCube.style.display = "block";
-        releaseWakeLock();
-        Bsolvefunc();
-        CalcAo5();
-        CalcAo12();
-        CalcAo50();
-        Wsolvefunc();
-        title.textContent = "HOLD TO START";
-        banana = 0;
-        generateScramble();
+            clearInterval(intervalId); //stops the timer
+            List.push(parseFloat(timer).toFixed(2));
+            scramble.push(currentScramble);
+            localStorage.setItem(`scramble_${cube}`, JSON.stringify(scramble));
+            localStorage.setItem(`List_${cube}`, JSON.stringify(List));
+            document.body.style.backgroundColor = "red";
+            NumberS.textContent = "Number of Solves: " + (List.length);
+            plus_two.style.display = "block"; 
+            DELETE.style.display = "block"; 
+            SCramble.style.fontSize = "2.7vmax";
+            Ao5.style.display = "block"; 
+            Ao12.style.display = "block"; 
+            NumberS.style.display = "block"; 
+            Ao50.style.display = "block"; 
+            Bsolve.style.display = "block"; 
+            Wsolve.style.display = "block"; 
+            timerContent.style.display = "Block";
+            history.style.display = "block";
+            ChooseCube.style.display = "block";
+            Bsolvefunc();
+            CalcAo5();
+            CalcAo12();
+            CalcAo50();
+            Wsolvefunc();
+            title.textContent = "HOLD TO START";
+            banana = 0;
+            generateScramble();
     }
 });
 
 addEventListener("touchend", function(event) {
+    if (event.target.tagName === "BUTTON" || event.target.closest("#display")) return;
     document.documentElement.style.overscrollBehaviorY = 'auto';
     document.body.style.overscrollBehaviorY = 'auto';
     if (isReadyToStart == true) {
