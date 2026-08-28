@@ -69,7 +69,7 @@ function Solve() {
         timerContent.textContent = (parseFloat(timer)).toFixed(2);;
         if (timer >60) {
             if (timer%60 < 10) {
-                timerS = Math.floor(timer / 60) +":0" + parseFloat(timer%60).toFixed(2);
+                timerS = Math.floor(timer / 60) +":" + "0" + parseFloat(timer%60).toFixed(2);
             } else {
                 timerS = Math.floor(timer / 60) +":" + parseFloat(timer%60).toFixed(2);
             }
@@ -81,10 +81,20 @@ function Solve() {
 }
 function CalcAo5() {
     if (List.length >= 5) {
+        let Ao5M = "0:00";
         let Ao5List = List.slice(-5); 
         Ao5List = Ao5List.map(num => parseFloat(num));
         Ao5List.sort((a, b) => a - b);
-        Ao5.textContent = "Ao5: " + ((parseFloat(Ao5List[1]) + parseFloat(Ao5List[2]) + parseFloat(Ao5List[3]))/3).toFixed(2);
+        if ((parseFloat(Ao5List[1]) + parseFloat(Ao5List[2]) + parseFloat(Ao5List[3]))/3 >+60) {
+            if (((parseFloat(Ao5List[1]) + parseFloat(Ao5List[2]) + parseFloat(Ao5List[3]))/3)%60 < 10) {
+                Ao5M = Math.floor(((parseFloat(Ao5List[1]) + parseFloat(Ao5List[2]) + parseFloat(Ao5List[3]))/3) / 60) +":0" + parseFloat(((parseFloat(Ao5List[1]) + parseFloat(Ao5List[2]) + parseFloat(Ao5List[3]))/3)%60).toFixed(2);
+            } else if (((parseFloat(Ao5List[1]) + parseFloat(Ao5List[2]) + parseFloat(Ao5List[3]))/3)%60 >= 10) {
+                Ao5M = Math.floor(((parseFloat(Ao5List[1]) + parseFloat(Ao5List[2]) + parseFloat(Ao5List[3]))/3) / 60) +":" + parseFloat(((parseFloat(Ao5List[1]) + parseFloat(Ao5List[2]) + parseFloat(Ao5List[3]))/3)%60).toFixed(2);
+            } 
+        } else {
+                Ao5M = parseFloat(((parseFloat(Ao5List[1]) + parseFloat(Ao5List[2]) + parseFloat(Ao5List[3]))/3)).toFixed(2);
+        }
+        Ao5.textContent = "Ao5: " + Ao5M;
     } else{
         Ao5.textContent = "Ao5: N/A";
     }
@@ -98,7 +108,17 @@ function CalcAo12() {
         for(let i =0; i<10; i++){
             sum12 = sum12 + Ao12List[i+1]
         }
-        Ao12.textContent = "Ao12: " + (parseFloat(sum12)/10).toFixed(2);
+        let Ao12M = "0:00";
+        if ((parseFloat(sum12)/10) >60) {
+            if (((parseFloat(sum12)/10)%60) < 10) {
+                Ao12M = Math.floor(((parseFloat(sum12)/10)) / 60) +":0" + parseFloat(((parseFloat(sum12)/10))%60).toFixed(2);
+            } else if (((parseFloat(sum12)/10)%60) >= 10) {
+                Ao12M = Math.floor(((parseFloat(sum12)/10)) / 60) +":" + parseFloat(((parseFloat(sum12)/10))%60).toFixed(2);
+            }
+        } else {
+                Ao12M = parseFloat(((parseFloat(sum12)/10))).toFixed(2);
+        }
+        Ao12.textContent = "Ao12: " + Ao12M;
     } else{
         Ao12.textContent = "Ao12: N/A";
     }
@@ -112,7 +132,17 @@ function CalcAo50() {
         for(let i =0; i<48; i++){
             sum50 = sum50 + Ao50List[i+1]
         }
-        Ao50.textContent = "Ao50: " + (parseFloat(sum50)/48).toFixed(2);
+        let Ao50M = "0:00";
+        if ((parseFloat(sum50)/48) >60) {
+            if (((parseFloat(sum50)/48)%60) < 10) {
+                Ao50M = Math.floor(((parseFloat(sum50)/48)) / 60) +":0" + parseFloat(((parseFloat(sum50)/48))%60).toFixed(2);
+            } else if (((parseFloat(sum50)/48)%60) >= 10) {
+                Ao50M = Math.floor(((parseFloat(sum50)/48)) / 60) +":" + parseFloat(((parseFloat(sum50)/48))%60).toFixed(2);
+            }
+        } else {
+                Ao50M = parseFloat(((parseFloat(sum50)/48))).toFixed(2);
+        }
+        Ao50.textContent = "Ao50: " + Ao50M;
     }else{
         Ao50.textContent = "Ao50: N/A";
     }
@@ -122,8 +152,15 @@ function Bsolvefunc() {
         // localStorage.setItem("`SolveBest_${cube}`2", localStorage.getItem("`SolveBest_${cube}`"));
         let numericList = List.map(num => parseFloat(num));
         let best = Math.min(...numericList);
+        if (best >60 && best%60 < 10) {
+            best = Math.floor(best / 60) +":0" + parseFloat(best%60).toFixed(2);
+        } else if (best >60) {
+            best = Math.floor(best / 60) +":" + parseFloat(best%60).toFixed(2);
+        } else {
+            best = parseFloat(best).toFixed(2);
+        }
         localStorage.setItem(`SolveBest_${cube}`, best);
-        Bsolve.textContent = "PB: " + best.toFixed(2);
+        Bsolve.textContent = "PB: " + best;
     } else{
         localStorage.setItem(`SolveBest_${cube}`, Infinity);
         Bsolve.textContent = "PB: N/A";
@@ -135,8 +172,15 @@ function Wsolvefunc() {
         // localStorage.setItem("`SolveWorst_${cube}`2", localStorage.getItem("`SolveWorst_${cube}`"));
         let numericList2 = List.map(num => parseFloat(num));
         let Worst = Math.max(...numericList2);
+        if (Worst >60 && Worst%60 < 10) {
+            Worst = Math.floor(Worst / 60) +":0" + parseFloat(Worst%60).toFixed(2);
+        } else if (Worst >60) {
+            Worst = Math.floor(Worst / 60) +":" + parseFloat(Worst%60).toFixed(2);
+        } else {
+            Worst = parseFloat(Worst).toFixed(2);
+        }
         localStorage.setItem(`SolveWorst_${cube}`, Worst);
-        Wsolve.textContent = "PW: " + Worst.toFixed(2);
+        Wsolve.textContent = "PW: " + Worst;
     } else{
         localStorage.setItem(`SolveWorst_${cube}`, 0);
         Wsolve.textContent = "PW: N/A";
@@ -179,9 +223,20 @@ function DeleteLast(){
     Delete((List.length-1));
 }
 function Plus2() {
-    event.preventDefault();
-    let timer2 = (parseFloat(timerContent.textContent)+2).toFixed(2)
-    List[List.length - 1] = timer2;
+    // event.preventDefault();
+    let timer2 = "0:00";
+    let timer1 = parseFloat(List[List.length - 1]);
+    if (timer1 +2 >= 60 && (timer1+2)%60 < 10) {
+        timer2 = Math.floor((timer1+2) / 60) +":0" + parseFloat((timer1+2)%60).toFixed(2);
+        timer1 = timer1 +2;
+    } else if (timer1 +2 >= 60) {
+        timer2 = Math.floor((timer1+2) / 60) +":" + parseFloat((timer1+2)%60).toFixed(2);
+        timer1 = timer1 +2;
+    } else {
+        timer2 = parseFloat(timer1+2).toFixed(2);
+        timer1 = timer1 +2;
+    }
+    List[List.length - 1] = parseFloat(timer1).toFixed(2);
     timerContent.textContent = timer2;
     localStorage.setItem(`List_${cube}`, JSON.stringify(List));
     Bsolvefunc();
@@ -191,6 +246,7 @@ function Plus2() {
     CalcAo50();
 }
 function History1(){
+    let timerH = "0:00";
     if (document.activeElement && document.activeElement.tagName === "BUTTON") {
         document.activeElement.blur();
     }
@@ -214,7 +270,14 @@ function History1(){
         deletesolveB.style.display = "block";
         display.innerHTML = "";
         for(let i =0; i<List.length; i++){
-            display.insertAdjacentHTML("afterbegin", `<p>${i + 1}. ${scramble[i]}: ${List[i]}</p>`);
+            if (List[i] >60 && List[i]%60 < 10) {
+                timerH = Math.floor(List[i] / 60) +":0" + parseFloat(List[i]%60).toFixed(2);
+            } else if (List[i] >60) {
+                timerH = Math.floor(List[i] / 60) +":" + parseFloat(List[i]%60).toFixed(2);
+            } else{
+                timerH = parseFloat(List[i]).toFixed(2);
+            }
+            display.insertAdjacentHTML("afterbegin", `<p>${i + 1}. ${scramble[i]}: ${timerH}</p>`);
         }
     } else{
         banana =0;
@@ -358,7 +421,7 @@ addEventListener("keydown", function(event) {
         }, 500);
         } if(banana ==1) {
             clearInterval(intervalId); //stops the timer
-            List.push(parseFloat(timerContent.textContent).toFixed(2));
+            List.push(parseFloat(timer).toFixed(2));
             scramble.push(currentScramble);
             localStorage.setItem(`scramble_${cube}`, JSON.stringify(scramble));
             localStorage.setItem(`List_${cube}`, JSON.stringify(List));
