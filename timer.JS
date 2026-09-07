@@ -6,6 +6,7 @@ let banana = 0;
 let timer = 0;
 let DisplayList =[];
 let intervalId = 10;
+let HisM = 2;
 let Ao5 = document.getElementById("Ao5");
 let NumberS = document.getElementById("NumberS");
 const plus_two  = document.getElementById("plus-two");
@@ -27,6 +28,7 @@ let holdTimeoutId = null;
 let scramble = JSON.parse(localStorage.getItem(`scramble_${cube}`)) || [];
 let history = document.getElementById("History1");
 let ChooseCube = document.getElementById("chooseCube");
+let HistoryChangebtn = document.getElementById("HistoryChange");
 let displayoff = 0;
 let currentScramble = "";
 title.textContent = cube;
@@ -248,6 +250,15 @@ function Plus2() {
     CalcAo12();
     CalcAo50();
 }
+function HistoryChange(){
+    if (HisM == 1) {
+        HisM = 2;
+    } else if (HisM == 2) {
+        HisM = 1;
+    }
+    displayoff = 0;
+    History1();
+}
 function History1(){
     let timerH = "0:00";
     if (document.activeElement && document.activeElement.tagName === "BUTTON") {
@@ -271,16 +282,32 @@ function History1(){
         history.textContent = "Back";
         display.style.display = "block";
         deletesolveB.style.display = "block";
+        HistoryChangebtn.style.display = "block";
         display.innerHTML = "";
-        for(let i =0; i<List.length; i++){
-            if (List[i] >60 && List[i]%60 < 10) {
-                timerH = Math.floor(List[i] / 60) +":0" + parseFloat(List[i]%60).toFixed(2);
-            } else if (List[i] >60) {
-                timerH = Math.floor(List[i] / 60) +":" + parseFloat(List[i]%60).toFixed(2);
-            } else{
-                timerH = parseFloat(List[i]).toFixed(2);
+        if (HisM == 1) {
+            for(let i =0; i<List.length; i++){
+                if (List[i] >60 && List[i]%60 < 10) {
+                    timerH = Math.floor(List[i] / 60) +":0" + parseFloat(List[i]%60).toFixed(2);
+                } else if (List[i] >60) {
+                    timerH = Math.floor(List[i] / 60) +":" + parseFloat(List[i]%60).toFixed(2);
+                } else{
+                    timerH = parseFloat(List[i]).toFixed(2);
+                }
+                display.insertAdjacentHTML("afterbegin", `<p>${i + 1}. ${scramble[i]}: ${timerH}</p>`);
             }
-            display.insertAdjacentHTML("afterbegin", `<p>${i + 1}. ${scramble[i]}: ${timerH}</p>`);
+        } else if (HisM == 2) {
+            scrambleH = [];
+            ListH = [...List];
+            for(let i =0; i<scramble.length; i++){
+                scrambleH.push(`(${"#" + i}) ${scramble[i]}`);
+            }
+            let pairs = ListH.map((num, i) => [scrambleH[i], num]);
+            pairs.sort((a, b) => a[1] - b[1]);
+            display.innerHTML = "";
+            for (let i = 0; i < pairs.length; i++) {
+                let scrambleText = pairs[i][0].substring(1); // Remove the "i" prefix
+                display.insertAdjacentHTML("beforeend", `<p>${scrambleText}: ${pairs[i][1]}</p>`);
+            }
         }
     } else{
         banana =0;
@@ -300,6 +327,7 @@ function History1(){
         history.textContent = "History";
         display.style.display = "none";
         deletesolveB.style.display = "none";
+        HistoryChangebtn.style.display = "none";
     }
 }
 function deletesolve(){
@@ -392,6 +420,7 @@ plus_two.style.display = "none";
 DELETE.style.display = "none"; 
 display.style.display = "none";
 deletesolveB.style.display = "none";
+HistoryChangebtn.style.display = "none";
 
 addEventListener("keydown", function(event) {
     if(event.code === "Space"){
