@@ -1,3 +1,4 @@
+
 body{
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     user-select: none;
@@ -109,6 +110,14 @@ position: absolute;
     position: fixed;
     top: 5vh;          /* Clean distance from the top edge */
     right: 20px;        /* Clean distance from the right edge */
+    display: flex;
+    width: auto;
+}
+#HistoryChange{
+    position: fixed;
+    transform: translate(-50%, -50%);
+    top: 7.5vh;          /* Clean distance from the top edge */
+    left: 50%;        /* Clean distance from the right edge */
     display: flex;
     width: auto;
 }
