@@ -31,6 +31,7 @@ let ChooseCube = document.getElementById("chooseCube");
 let HistoryChangebtn = document.getElementById("HistoryChange");
 let displayoff = 0;
 let currentScramble = "";
+let cubemanuON = false;
 title.textContent = cube;
 if(localStorage.getItem(`SolveBest_${cube}`) == null) {
     localStorage.setItem(`SolveBest_${cube}`, Infinity);
@@ -38,6 +39,7 @@ if(localStorage.getItem(`SolveBest_${cube}`) == null) {
 if(localStorage.getItem(`SolveWorst_${cube}`) == null) {
     localStorage.setItem(`SolveWorst_${cube}`, 0);
 }
+
 
 function generateScramble() {
     let seeded_scramble = new Scrambow()
@@ -356,12 +358,57 @@ function deletesolve(){
 
 
 }
+
 function chooseCube(){
+    cubemanuON = true;
+    timerContent.style.display = "none";
+    title.style.display = "none";
+    Ao5.style.display = "none"; 
+    Ao12.style.display = "none"; 
+    NumberS.style.display = "none"; 
+    Ao50.style.display = "none"; 
+    Bsolve.style.display = "none"; 
+    Wsolve.style.display = "none"; 
+    plus_two.style.display = "none"; 
+    DELETE.style.display = "none"; 
+    SCramble.style.display = "none"; 
+    history.style.display = "none";
+    ChooseCube.style.display = "none";
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+window.onclick = function(event) {
+    if (!event.target.matches('.dropdown button')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        for (var i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+            }
+        if (cubemanuON) {
+        timerContent.style.display = "block";
+        title.style.display = "block";
+        Ao5.style.display = "block"; 
+        Ao12.style.display = "block"; 
+        NumberS.style.display = "block"; 
+        Ao50.style.display = "block"; 
+        Bsolve.style.display = "block"; 
+        Wsolve.style.display = "block"; 
+        plus_two.style.display = "block"; 
+        DELETE.style.display = "block"; 
+        SCramble.style.display = "block"; 
+        history.style.display = "block";
+        ChooseCube.style.display = "block";
+        cubemanuON = false;
+        }
+    }
+}
+}
+function sendCube(name){
     if (document.activeElement && document.activeElement.tagName === "BUTTON") {
         document.activeElement.blur();
     }
     let validcubes = ["222", "333", "444", "555", "666", "777", "clock", "fto", "minx", "pyram", "skewb", "sq1", "clockoptimal"];
-    cubeA = prompt("Choose Cube type: 222, 333, 444, 555, 666, 777, OH, clock, fto, minx, pyram, skewb, sq1, clockoptimal : " );
+    cubeA = name;
     if(cubeA == "OH" || cubeA == "oh"){
         cubeA = "OH"
         cubeC = 333;
@@ -388,6 +435,46 @@ function chooseCube(){
     CalcAo50();
 
 }
+function choose2x2(){
+    sendCube("222");
+}
+function choose3x3(){
+    sendCube("333");
+}
+function choose4x4(){
+    sendCube("444");
+}
+function choose5x5(){
+    sendCube("555");
+}
+function choose6x6(){
+    sendCube("666");
+}
+function choose7x7(){
+    sendCube("777");
+}
+function chooseClock(){
+    sendCube("clock");
+}
+function chooseFTO(){
+    sendCube("fto");
+}
+function chooseMinx(){
+    sendCube("minx");
+}
+function choosePyram(){
+    sendCube("pyram");
+}
+function chooseSkewb(){
+    sendCube("skewb");
+}
+function chooseSQ1(){
+    sendCube("sq1");
+}
+function chooseOH(){
+    sendCube("OH");
+}
+
 let wakeLock = null;
 
 async function requestWakeLock() {
