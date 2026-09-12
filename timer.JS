@@ -52,7 +52,6 @@ function Solve() {
     let timerS = '0:00';
     timer = 0;
     timerContent.innerHTML = "";
-    SCramble.style.fontSize = "4vmax";
     banana = 1;
     Ao5.style.display = "none"; 
     Ao12.style.display = "none"; 
@@ -62,7 +61,7 @@ function Solve() {
     Wsolve.style.display = "none"; 
     plus_two.style.display = "none"; 
     DELETE.style.display = "none"; 
-    timerContent.style.display = "none"; 
+    SCramble.style.display = "none"; 
     history.style.display = "none";
     ChooseCube.style.display = "none";
     intervalId = setInterval(() => {
@@ -74,10 +73,10 @@ function Solve() {
                 timerS = Math.floor(timer / 60) +":" + parseFloat(timer%60).toFixed(2);
             }
             timerContent.textContent = timerS;;
-            SCramble.textContent = timerS;;
+            // SCramble.textContent = timerS;;
         } else {
             timerContent.textContent = (parseFloat(timer)).toFixed(2);;
-            SCramble.textContent = (parseFloat(timer)).toFixed(2);;
+            // SCramble.textContent = (parseFloat(timer)).toFixed(2);;
         }
     }, 10);
 }
@@ -444,11 +443,11 @@ addEventListener("keydown", function(event) {
         } else {
         if (banana == 0) {
             if (event.repeat) return;
-            document.body.style.backgroundColor = "orange"; // Visual cue: Holding/Waiting
+            timerContent.style.color = "#db0000"; // Visual cue: Holding/Waiting
             title.textContent = "HOLD";
             holdTimeoutId = setTimeout(() => {
                 isReadyToStart = true;
-                document.body.style.backgroundColor = "green";
+            timerContent.style.color = "#39FF14"; // Visual cue: Ready to start
                 title.textContent = "RELEASE TO START";
         }, 500);
         } if(banana ==1) {
@@ -457,7 +456,6 @@ addEventListener("keydown", function(event) {
             scramble.push(currentScramble);
             localStorage.setItem(`scramble_${cube}`, JSON.stringify(scramble));
             localStorage.setItem(`List_${cube}`, JSON.stringify(List));
-            document.body.style.backgroundColor = "red";
             NumberS.textContent = "Number of Solves: " + (List.length);
             plus_two.style.display = "block"; 
             DELETE.style.display = "block"; 
@@ -468,8 +466,9 @@ addEventListener("keydown", function(event) {
             Ao50.style.display = "block"; 
             Bsolve.style.display = "block"; 
             Wsolve.style.display = "block"; 
-            timerContent.style.display = "Block";
+            timerContent.style.display = "block";
             history.style.display = "block";
+            SCramble.style.display = "block"; 
             ChooseCube.style.display = "block";
             Bsolvefunc();
             CalcAo5();
@@ -494,7 +493,7 @@ addEventListener("keyup", function(event) {
         isReadyToStart = false;
     } else{
         this.clearTimeout(holdTimeoutId);
-        document.body.style.backgroundColor = "red";
+        timerContent.style.color = "white"; // Visual cue: Ready to start
         title.textContent = "HOLD TO START";
         isReadyToStart = false;
     }
@@ -517,11 +516,11 @@ addEventListener("touchstart", function(event) {
     if (banana == 0) {
         if (event.touches.length > 1) return;
         if (event.repeat) return;
-        document.body.style.backgroundColor = "orange"; // Visual cue: Holding/Waiting
+        timerContent.style.color = "#db0000"; // Visual cue: Holding/Waiting
         title.textContent = "HOLD";
         clearTimeout(holdTimeoutId);
         holdTimeoutId = setTimeout(() => {
-            document.body.style.backgroundColor = "green";
+            timerContent.style.color = "#39FF14"; // Visual cue: Ready to start
             title.textContent = "RELEASE TO START";
             isReadyToStart = true;
         }, 500);
@@ -531,7 +530,7 @@ addEventListener("touchstart", function(event) {
             scramble.push(currentScramble);
             localStorage.setItem(`scramble_${cube}`, JSON.stringify(scramble));
             localStorage.setItem(`List_${cube}`, JSON.stringify(List));
-            document.body.style.backgroundColor = "red";
+            // document.body.style.backgroundColor = "red";
             NumberS.textContent = "Number of Solves: " + (List.length);
             plus_two.style.display = "block"; 
             DELETE.style.display = "block"; 
@@ -545,6 +544,7 @@ addEventListener("touchstart", function(event) {
             timerContent.style.display = "Block";
             history.style.display = "block";
             ChooseCube.style.display = "block";
+            SCramble.style.display = "block";
             Bsolvefunc();
             CalcAo5();
             CalcAo12();
@@ -570,7 +570,8 @@ addEventListener("touchend", function(event) {
         isReadyToStart = false;
     } else{
         this.clearTimeout(holdTimeoutId);
-        document.body.style.backgroundColor = "red";
+        // document.body.style.backgroundColor = "red";
+        timerContent.style.color = "white"; // Visual cue: Ready to start
         title.textContent = "HOLD TO START";
         isReadyToStart = false;
     }
