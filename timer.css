@@ -1,17 +1,24 @@
-
 body{
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     user-select: none;
     -webkit-user-select: none; /* Safari */
-    background-color: #1f79e7;
-    color: #000000;
+    background-color: #1b1a1a;
+    color: #ffffff;
     position: relative;
 }
 #scramble{
     position: relative;
     text-align: center;
+    top: 40vh;
+    font-size: 2.3vmax;
+    font-weight: bold;
+    margin-top: 20px;
+}
+#timer{
+    position: relative;
+    text-align: center;
     top: 30vh;
-    font-size: 2.7vmax;
+    font-size: 8vmax;
     font-weight: bold;
     margin-top: 20px;
 }
@@ -140,12 +147,4 @@ position: absolute;
     top: 10vh;
 }
 .arrow {font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; width: auto; height: auto; font-size: 4dvh; font-weight: bold; margin: 4px; cursor: pointer; background: #0e0f0f; border: 2px solid #caecd6; color: #ffffff; border-radius: 12px;
-}
-#timer{
-    position: relative;
-    text-align: center;
-    top: 60vh;
-    font-size: 2.5vmax;
-    font-weight: bold;
-    margin-top: 20px;
 }
