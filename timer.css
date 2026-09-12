@@ -1,3 +1,4 @@
+
 body{
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     user-select: none;
@@ -147,4 +148,19 @@ position: absolute;
     top: 10vh;
 }
 .arrow {font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; width: auto; height: auto; font-size: 4dvh; font-weight: bold; margin: 4px; cursor: pointer; background: #0e0f0f; border: 2px solid #caecd6; color: #ffffff; border-radius: 12px;
+}
+.arrow1 {font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; width: auto; height: auto; font-size: 4dvh; font-weight: bold; margin: 4px; cursor: pointer; background: #1b1a1a; border: 2px solid #caecd6; color: #ffffff; border-radius: 12px;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 2vh;
+  color: white;
+  background-color: #1b1a1a;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+.dropdown-content.show {
+  display: block;
 }
