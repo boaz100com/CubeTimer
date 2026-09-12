@@ -27,7 +27,24 @@
         <button class="arrow" id="History1" onclick="History1()">History</button>
         <button class="arrow" id="HistoryChange" onclick="HistoryChange()">View</button>
         <button class="arrow" id="deletesolve" onclick="deletesolve()">Delete</button>
-        <button class= "arrow" id = "chooseCube" onclick="chooseCube()">Cube</button>
+        <div class="dropdown">
+            <button class= "arrow" id = "chooseCube" onclick="chooseCube()">Cube</button>
+            <div class="dropdown-content" id="myDropdown">
+                <li class="arrow1" id="choose2x2" onclick="choose2x2()">2x2</li>
+                <li class="arrow1" id="choose3x3" onclick="choose3x3()">3x3</li>
+                <li class="arrow1" id="choose4x4" onclick="choose4x4()">4x4</li>
+                <li class="arrow1" id="choose5x5" onclick="choose5x5()">5x5</li>
+                <li class="arrow1" id="choose6x6" onclick="choose6x6()">6x6</li>
+                <li class="arrow1" id="choose7x7" onclick="choose7x7()">7x7</li>
+                <li class="arrow1" id="choose8x8" onclick="chooseOH()">OH</li>
+                <li class="arrow1" id="choosePyraminx" onclick="choosePyram()">Pyraminx</li>
+                <li class="arrow1" id="chooseMegaminx" onclick="chooseMinx()">Megaminx</li>
+                <li class="arrow1" id="chooseSkewb" onclick="chooseSkewb()">Skewb</li>
+                <li class="arrow1" id="chooseSquare1" onclick="chooseSQ1()">Square-1</li>
+                <li class="arrow1" id="chooseClock" onclick="chooseClock()">Clock</li>
+                <li class="arrow1" id="chooseMastermorphix" onclick="chooseFTO()">FTO</li>
+            </div> 
+        </div>
         <script src="scrambow-browser.js"></script>
         <script src="timer.JS"></script> 
     </body>
